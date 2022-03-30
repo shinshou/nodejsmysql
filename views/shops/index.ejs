@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+  <head>
+    <%- include("../_share/metadata.ejs")%>
+    <title>Document</title>
+    <%- include("../_share/stylesheets.ejs")%>
+    <link rel="stylesheet" href="/public/stylesheets/index.css">
+  </head>
+
+  <body>
+    <div class="outerframe">
+      <%- include("../_share/navbar.ejs")%>
+      <main class="container">
+        <div class="mt-5 mb-5">
+          <h1 class="display-4"><%= name %></h1>
+          <p class="h3">
+            <span class="rate-star" style="--rate:<%= (score/5.00)*100 %>%;">
+            </span>
+            <span>
+              <%= padding(score)%>
+            </span>
+
+            <div>
+              <img class="img-fluid" src="/public/images//dummy/1150x250.png">
+            </div>
+
+            <div class="row">
+              <div class="col-md-8">
+                <h2 class="border-bottom mt-5 mb-2">
+                  <i class="fa fa-fw fa-book">
+                  </i><!-- /.fa fa-fw fa-book -->
+                  店舗情報
+                </h2><!-- /.border-bottom mt-5 mb-2 -->
+                <table class="table table-bordered">
+                  <colgroup>
+                    <col class="bg-light" style="width:10rem">
+                    <col>
+                  </colgroup>
+                  <tr>
+                    <th>店名</th>
+                    <td><%= name %></td>
+                  </tr>
+                  <tr>
+                    <th>カテゴリー</th>
+                    <td><%= categories %></td>
+                  </tr>
+                  <tr>
+                    <th>電話</th>
+                    <td><%= tel %></td>
+                  </tr>
+                  <tr>
+                    <th>住所</th>
+                    <td>
+                      <div><%= address %></div>
+                      <div id="mapid"></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>定休日</th>
+                    <td><%= holiday %></td>
+                  </tr>
+                  <tr>
+                    <th>座席数</th>
+                    <td><%= seats %></td>
+                  </tr>
+                  <tr>
+                    <th>価格帯</th>
+                    <td><%= price_range %></td>
+                  </tr>
+                </table>
+                <div>
+                  <div class="position-relative">
+                    <h2 class="border-bottom mt-5 mb-5 pb-2">
+                      <i class="fa fa-fw fa-comment"></i><!-- /.fa fa-fw fa-comment -->
+                      口コミ
+                    </h2><!-- /.border-bottom mt-5 mb-5 pb-2 -->
+                    <div class="position-absolute" style="right:0;top:0;">
+                      <a href="/account/reviews/regist/<%= id %>" class="btn btn-outline-success">
+                        投稿する
+                      </a><!-- /.btn btn-putline-success -->
+                    </div><!-- /.position-absolute -->
+                  </div><!-- /.position-relative -->
+                  <div>
+                    <% for(let review of reviews){ %>
+                    <% review.shop = id %>
+                    <%- include("./review.ejs",review)%>
+                    <% } %>
+                  </div>
+                </div>
+              </div><!-- /.col-md-8 -->
+              <div class="col-md-4">
+                <h2 class="border-bottom mt-5 mb-5 pb-2">
+                  <i class="fa fa-fw fa-heart"></i><!-- /.fa fa-fw fa-heart -->
+                  おすすめのお店
+                </h2><!-- /.border-bottom mt-5 mb-5 pb-2 -->
+                <!-- Reccommends -->
+              </div><!-- /.col-md-4 -->
+            </div>
+          </p><!-- /.h3 -->
+        </div>
+      </main><!-- /.container -->
+      <%- include("../_share/footer.ejs")%>
+    </div><!-- /.outerframe -->
+    <%- include("../_share/javascripts.ejs")%>
+  </body>
+
+</html>

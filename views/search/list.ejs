@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+  <head>
+    <%- include("../_share/metadata.ejs")%>
+    <title>Document</title>
+    <%- include("../_share/stylesheets.ejs")%>
+    <link rel="stylesheet" href="/public/stylesheets/index.css">
+  </head>
+
+  <body>
+    <div class="outerframe">
+      <%- include("../_share/navbar.ejs")%>
+      <main role="main" class="container">
+
+        <div class="row">
+          <div class="border-bottom col">
+            <form action="/search" method="get" class="mt-5 mb-5">
+              <div class="form-group row justify-content-center">
+                <div class="input-group mt-3 mb-3 col-sm-8">
+                  <input type="text" class="form-control" id="keyword" name="keyword" value="<%= keyword %>" autofocus>
+                  <div class="input-group-append">
+                    <button class="btn btn-secondary" type="submit">
+                      <i class="fa fa-fw fa-search"></i><!-- /.fa fa-fw fa-search -->
+                    </button><!-- /.btn btn-secondary -->
+                  </div><!-- /.input-group-append -->
+                </div><!-- /.input-group mt-3 mb-3 col-sm-8 -->
+              </div><!-- /.form-group row justify-content-center -->
+            </form>
+          </div><!-- /.border-bottom -->
+
+          <div class="card-columns mt-5">
+            <% for (let item of results) { %>
+            <%- include("./item.ejs",item) %>
+            <% } %>
+          </div><!-- /.card-columns mt-5 -->
+
+          <nav class="col">
+            <ul class="pagination justify-content-center">
+              <% for(let i = 1; i <= pagenation.max ; i++) { %>
+              <% if(pagenation.current !==i) { %>
+              <% if(i<=3 || (pagenation.current - 3 < i && i < pagenation.current + 3) || (pagenation.max - 3 < i)){ %>
+              <li class="page-item">
+                <a href="/search/?keyword=<%= keyword %>&page=<%= i %>" class="page-link">
+                  <%= i %>
+                </a><!-- /.page-link -->
+              </li><!-- /.page-item -->
+              <% } else { %>
+              .
+              <% } %>
+              <% } else { %>
+              <li class="page-item active">
+                <span class="page-link disable"><%= i %></span><!-- /.page-link disable -->
+              </li><!-- /.page-item -->
+              <% } %>
+              <% } %>
+            </ul><!-- /.pagination justify-content-center -->
+          </nav>
+        </div><!-- /.row -->
+
+      </main>
+      <%- include("../_share/footer.ejs")%>
+    </div><!-- /.outerframe -->
+    <%- include("../_share/javascripts.ejs")%>
+  </body>
+
+</html>
